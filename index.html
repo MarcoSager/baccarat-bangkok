@@ -781,6 +781,35 @@
       }
     }
 
+    /* ── Mobile improvements ─────────────────────────────────── */
+    @media (max-width: 600px) {
+      .hero-title { font-size: clamp(3.8rem, 18vw, 6rem); line-height: 0.9; }
+      .hero-content { padding: 0 20px 52px; }
+      .hero-cta { flex-direction: column; }
+      .hero-cta a { text-align: center; padding: 14px 32px; }
+      .hero-scroll { right: 20px; }
+      .btn-red, .btn-ghost { width: 100%; text-align: center; }
+      .about-stats { grid-template-columns: 1fr 1fr; gap: 2px; }
+      .marquee-item { padding: 0 20px; font-size: 0.58rem; }
+      .exp-card { padding: 36px 24px; }
+      .res-inner { padding: 0 20px; }
+      .info-cells { grid-template-columns: 1fr; }
+      footer { padding: 40px 20px 28px; }
+      .footer-links { gap: 16px; justify-content: center; }
+    }
+
+    @media (max-width: 480px) {
+      .about-stats { grid-template-columns: 1fr; }
+      .pre-word { letter-spacing: 0.25em; font-size: 1.8rem; }
+    }
+
+    @media (hover: none) {
+      body { cursor: auto; }
+      #cursor, #cursor-ring, .cursor-particle { display: none; }
+      .btn-red:active  { background: var(--red-bright); }
+      .btn-ghost:active { border-color: var(--cream); }
+    }
+
     @media (max-width:900px) {
       nav { padding:18px 24px; }
       nav.scrolled { padding:12px 24px; }

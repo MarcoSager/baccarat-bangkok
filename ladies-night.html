@@ -737,6 +737,13 @@
       z-index: 9999;
     }
 
+    /* ── Touch / tap improvements ──────────────────────────────── */
+    @media (hover: none) {
+      body { cursor: auto; }
+      .field-input, .field-select, .btn-submit { -webkit-tap-highlight-color: rgba(196,24,24,0.15); }
+      .btn-submit:active { background: var(--red-bright); }
+    }
+
     /* ── Reduced motion ─────────────────────────────────────── */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
@@ -748,8 +755,8 @@
     /* ── Mobile ───────────────────────────────────────────────── */
     @media (max-width:900px) {
       .hero { grid-template-columns:1fr; min-height:auto; }
-      .hero-img-panel { height: 45vh; }
-      .hero-img-panel::after { background: linear-gradient(to bottom, rgba(6,4,4,0) 40%, rgba(6,4,4,1) 100%); }
+      .hero-img-panel { height: 50vh; }
+      .hero-img-panel::after { background: linear-gradient(to bottom, rgba(6,4,4,0) 30%, rgba(6,4,4,1) 100%); }
       .hero-text-panel { padding: 48px 24px 60px; }
       .perks-inner, .form-inner { padding: 0 24px; }
       .perks-grid { grid-template-columns:1fr; }
@@ -759,6 +766,20 @@
       footer { padding:40px 24px 28px; }
       .perks, #register { padding:80px 0; }
       .info-strip { padding:48px 0; }
+      .map-embed { height: 300px; }
+    }
+
+    @media (max-width:600px) {
+      .hero-headline { font-size: clamp(3rem, 16vw, 5rem); }
+      .hero-text-panel { padding: 36px 20px 52px; }
+      .offer-box { flex-direction: column; text-align: center; gap: 12px; }
+      .hero-cta { flex-direction: column; }
+      .hero-cta a { text-align: center; }
+      .btn-submit { font-size: 0.62rem; padding: 16px; }
+      .form-card { padding: 28px 18px; }
+      .success-badge { font-size: 1.1rem; padding: 12px 20px; }
+      .map-overlay-pill { font-size: 0.55rem; padding: 8px 16px; }
+      .footer-socials { gap: 20px; flex-wrap: wrap; }
     }
   </style>
 </head>

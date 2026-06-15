@@ -699,8 +699,12 @@
     /* ── Animations ───────────────────────────────────────────── */
     @keyframes fadeUp { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:translateY(0); } }
     @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-    .reveal { opacity:0; transform:translateY(32px); transition:opacity .8s ease, transform .8s ease; }
+    /* gsap-on class added by JS when GSAP loads — hide reveals for GSAP to animate */
+    .gsap-on .reveal { opacity:0; transform:translateY(32px); transition:none; }
+    .reveal { transition:opacity .8s ease, transform .8s ease; }
     .reveal.visible { opacity:1; transform:translateY(0); }
+    /* no-gsap: show all content immediately via CSS transitions */
+    .no-gsap .reveal { opacity:1 !important; transform:none !important; transition:none !important; }
     .rd1 { transition-delay:.1s; }
     .rd2 { transition-delay:.2s; }
     .rd3 { transition-delay:.3s; }
@@ -791,12 +795,12 @@
   <section class="hero">
     <!-- Left: image -->
     <div class="hero-img-panel">
-      <img src="Bacarat Bangkok/5010916.jpg" alt="Baccarat Bangkok" />
+      <img src="Bacarat Bangkok/Q524tReNnAnmuqp47gXtVoUtA0PdrBjmlWRb2Yl54r.webp" alt="Baccarat Bangkok" />
     </div>
 
     <!-- Right: text -->
     <div class="hero-text-panel">
-      <a href="index.html" class="hero-logo">
+      <a href="https://instagram.com/baccaratbangkok" target="_blank" class="hero-logo">
         <img src="Bacarat Bangkok/images.png" alt="Baccarat" />
         <span class="hero-logo-text">Baccarat Bangkok</span>
       </a>
@@ -818,7 +822,7 @@
 
       <div class="hero-cta">
         <a href="#register" class="btn-red">Claim My Drinks →</a>
-        <a href="index.html" class="btn-ghost">Main Site</a>
+        <a href="https://instagram.com/baccaratbangkok" target="_blank" class="btn-ghost">@baccaratbangkok</a>
       </div>
     </div>
   </section>
@@ -1015,80 +1019,92 @@
       <a href="https://facebook.com/Baccaratbangkok" target="_blank">Facebook</a>
     </div>
     <div class="footer-copy">© 2025 Baccarat Bangkok · All rights reserved</div>
-    <br />
-    <a href="index.html" class="back-link">← Back to main site</a>
   </footer>
 
   <script>
-    gsap.registerPlugin(ScrollTrigger);
-
-    /* ── Scroll progress ─────────────────────────────────────── */
+    /* ── Scroll progress (no GSAP needed) ───────────────────── */
     const progBar = document.getElementById('scroll-progress');
     window.addEventListener('scroll', () => {
       const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
       progBar.style.width = pct + '%';
     });
 
-    /* ── Hero split-panel entrance ───────────────────────────── */
-    gsap.from('.hero-img-panel', {
-      x: '-6%', opacity: 0,
-      duration: 1.1, ease: 'power3.out', delay: 0.1
-    });
-    gsap.from('.hero-text-panel', {
-      x: '4%', opacity: 0,
-      duration: 1.1, ease: 'power3.out', delay: 0.2
-    });
-    gsap.from('.hero-logo',    { opacity:0, y:-12, duration:0.6, delay:0.5, ease:'power3.out' });
-    gsap.from('.event-day',    { opacity:0, y:16,  duration:0.7, delay:0.65, ease:'power3.out' });
-    gsap.from('.hero-headline',{ opacity:0, y:30,  duration:0.9, delay:0.8,  ease:'power3.out' });
-    gsap.from('.hero-sub',     { opacity:0, y:20,  duration:0.7, delay:1.0,  ease:'power3.out' });
-    gsap.from('.offer-box',    { opacity:0, y:20,  duration:0.7, delay:1.15, ease:'power3.out' });
-    gsap.from('.hero-cta',     { opacity:0, y:20,  duration:0.7, delay:1.3,  ease:'power3.out' });
+    /* ── Try GSAP — fallback gracefully if unavailable ──────── */
+    try {
+      gsap.registerPlugin(ScrollTrigger);
+      document.documentElement.classList.add('gsap-on');
 
-    /* ── Scroll reveals ──────────────────────────────────────── */
-    gsap.utils.toArray('.reveal').forEach(el => {
-      const delay = el.classList.contains('rd3') ? 0.3
-                  : el.classList.contains('rd2') ? 0.2
-                  : el.classList.contains('rd1') ? 0.1 : 0;
-      gsap.from(el, {
-        opacity: 0, y: 38, duration: 0.85, delay,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: el, start: 'top 83%' }
-      });
-      el.style.opacity = '';
-      el.style.transform = '';
-    });
+      /* Hero split-panel entrance */
+      gsap.fromTo('.hero-img-panel',
+        { x: '-6%', opacity: 0 },
+        { x: '0%', opacity: 1, duration: 1.1, ease: 'power3.out', delay: 0.1 }
+      );
+      gsap.fromTo('.hero-text-panel',
+        { x: '4%', opacity: 0 },
+        { x: '0%', opacity: 1, duration: 1.1, ease: 'power3.out', delay: 0.2 }
+      );
+      gsap.fromTo('.hero-logo',     { opacity:0, y:-12 }, { opacity:1, y:0, duration:0.6,  delay:0.5,  ease:'power3.out' });
+      gsap.fromTo('.event-day',     { opacity:0, y:16  }, { opacity:1, y:0, duration:0.7,  delay:0.65, ease:'power3.out' });
+      gsap.fromTo('.hero-headline', { opacity:0, y:30  }, { opacity:1, y:0, duration:0.9,  delay:0.8,  ease:'power3.out' });
+      gsap.fromTo('.hero-sub',      { opacity:0, y:20  }, { opacity:1, y:0, duration:0.7,  delay:1.0,  ease:'power3.out' });
+      gsap.fromTo('.offer-box',     { opacity:0, y:20  }, { opacity:1, y:0, duration:0.7,  delay:1.15, ease:'power3.out' });
+      gsap.fromTo('.hero-cta',      { opacity:0, y:20  }, { opacity:1, y:0, duration:0.7,  delay:1.3,  ease:'power3.out' });
 
-    /* ── Perk cards stagger ──────────────────────────────────── */
-    gsap.from('.perk-card', {
-      opacity: 0, y: 48, stagger: 0.15, duration: 0.9,
-      ease: 'power3.out',
-      scrollTrigger: { trigger: '.perks-grid', start: 'top 78%' }
-    });
+      /* Scroll reveals */
+      gsap.utils.toArray('.reveal').forEach(el => {
+        const delay = el.classList.contains('rd3') ? 0.3
+                    : el.classList.contains('rd2') ? 0.2
+                    : el.classList.contains('rd1') ? 0.1 : 0;
+        gsap.fromTo(el,
+          { opacity: 0, y: 38 },
+          { opacity: 1, y: 0, duration: 0.85, delay, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 86%' } }
+        );
+      });
 
-    /* ── Magnetic buttons ────────────────────────────────────── */
-    document.querySelectorAll('.btn-red, .btn-submit, .btn-ghost').forEach(btn => {
-      btn.addEventListener('mousemove', e => {
-        const r = btn.getBoundingClientRect();
-        const x = (e.clientX - r.left - r.width  / 2) * 0.28;
-        const y = (e.clientY - r.top  - r.height / 2) * 0.28;
-        gsap.to(btn, { x, y, duration: 0.3, ease: 'power2.out' });
-      });
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, { x: 0, y: 0, duration: 0.55, ease: 'power3.out' });
-      });
-    });
+      /* Perk cards stagger */
+      gsap.fromTo('.perk-card',
+        { opacity: 0, y: 48 },
+        { opacity: 1, y: 0, stagger: 0.15, duration: 0.9, ease: 'power3.out',
+          scrollTrigger: { trigger: '.perks-grid', start: 'top 78%' } }
+      );
 
-    /* ── Form: focus ring pulse ──────────────────────────────── */
-    document.querySelectorAll('.field-input, .field-select').forEach(el => {
-      el.addEventListener('focus', () => {
-        gsap.fromTo(el, { boxShadow: '0 0 0 0px rgba(196,24,24,0)' },
-                        { boxShadow: '0 0 0 3px rgba(196,24,24,0.18)', duration: 0.3 });
+      /* Magnetic buttons */
+      document.querySelectorAll('.btn-red, .btn-submit, .btn-ghost').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const r = btn.getBoundingClientRect();
+          const x = (e.clientX - r.left - r.width  / 2) * 0.28;
+          const y = (e.clientY - r.top  - r.height / 2) * 0.28;
+          gsap.to(btn, { x, y, duration: 0.3, ease: 'power2.out' });
+        });
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, { x: 0, y: 0, duration: 0.55, ease: 'power3.out' });
+        });
       });
-      el.addEventListener('blur', () => {
-        gsap.to(el, { boxShadow: '0 0 0 0px rgba(196,24,24,0)', duration: 0.25 });
+
+      /* Form field focus glow */
+      document.querySelectorAll('.field-input, .field-select').forEach(el => {
+        el.addEventListener('focus', () => {
+          gsap.fromTo(el, { boxShadow: '0 0 0 0px rgba(196,24,24,0)' },
+                          { boxShadow: '0 0 0 3px rgba(196,24,24,0.18)', duration: 0.3 });
+        });
+        el.addEventListener('blur', () => {
+          gsap.to(el, { boxShadow: '0 0 0 0px rgba(196,24,24,0)', duration: 0.25 });
+        });
       });
-    });
+
+    } catch(e) {
+      /* GSAP unavailable — show all content via CSS fallback */
+      document.documentElement.classList.add('no-gsap');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+      } else {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+      }
+    }
 
     /* ── Form submit + sparkle ───────────────────────────────── */
     const form      = document.getElementById('signupForm');
@@ -1096,6 +1112,7 @@
     const submitBtn = document.getElementById('submitBtn');
 
     function spawnSparkles() {
+      if (typeof gsap === 'undefined') return;
       const colors = ['#C41818','#E85555','#FAF5F0','#C4903A','#ff9999'];
       for (let i = 0; i < 28; i++) {
         const s = document.createElement('div');
@@ -1109,10 +1126,8 @@
         gsap.to(s, {
           x: sx + (Math.random() - 0.5) * 280,
           y: sy + (Math.random() - 0.5) * 280,
-          opacity: 0,
-          scale: Math.random() * 1.5 + 0.5,
-          duration: 0.8 + Math.random() * 0.6,
-          ease: 'power2.out',
+          opacity: 0, scale: Math.random() * 1.5 + 0.5,
+          duration: 0.8 + Math.random() * 0.6, ease: 'power2.out',
           onComplete: () => s.remove()
         });
       }
@@ -1127,10 +1142,8 @@
       const agreed = document.getElementById('agree').checked;
 
       if (!fname || !phone || !guests || !date || !agreed) {
-        gsap.to(submitBtn, {
-          x: [-6, 6, -5, 5, -3, 3, 0], duration: 0.4,
-          ease: 'none', clearProps: 'x'
-        });
+        submitBtn.style.animation = 'shake 0.4s ease';
+        setTimeout(() => { submitBtn.style.animation = ''; }, 400);
         const orig = submitBtn.textContent;
         submitBtn.textContent = 'Please fill all required fields';
         setTimeout(() => { submitBtn.textContent = orig; }, 2200);
@@ -1139,16 +1152,12 @@
 
       submitBtn.textContent = 'Confirming your spot…';
       submitBtn.disabled = true;
-
-      gsap.to(submitBtn, { opacity: 0.6, duration: 0.2 });
+      submitBtn.style.opacity = '0.6';
 
       setTimeout(() => {
         form.style.display = 'none';
         success.style.display = 'block';
-        gsap.from(success, { opacity: 0, y: 20, duration: 0.6, ease: 'power3.out' });
-        gsap.from('.success-icon', { scale: 0, duration: 0.5, ease: 'back.out(2)', delay: 0.2 });
-        gsap.from('.success-title', { opacity: 0, y: 16, duration: 0.5, delay: 0.35 });
-        gsap.from('.success-badge', { opacity: 0, scale: 0.9, duration: 0.5, delay: 0.5 });
+        success.style.animation = 'fadeUp 0.6s ease forwards';
         setTimeout(spawnSparkles, 400);
         document.getElementById('register').scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 900);

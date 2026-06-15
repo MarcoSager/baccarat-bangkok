@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ladies Night — BACCARAT BANGKOK</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:      #060404;
+      --dark:       #0e0606;
+      --deep:       #160808;
+      --red:        #8B1212;
+      --red-mid:    #A81515;
+      --red-bright: #C41818;
+      --amber:      #C4903A;
+      --amber-dim:  #8A6020;
+      --amber-pale: #E8CC9A;
+      --cream:      #F0E0D0;
+      --white:      #FAF5F0;
+      --muted:      rgba(240,224,208,0.5);
+      --line-red:   rgba(139,18,18,0.4);
+      --line-amb:   rgba(196,144,58,0.2);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--red); }
+
+    /* ── HERO ─────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    /* Left: image */
+    .hero-img-panel {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-img-panel img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(0.65) contrast(1.1);
+      display: block;
+    }
+    .hero-img-panel::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to right, rgba(6,4,4,0) 60%, rgba(6,4,4,1) 100%),
+        linear-gradient(to bottom, rgba(6,4,4,0.4) 0%, rgba(6,4,4,0) 30%);
+    }
+
+    /* Right: content */
+    .hero-text-panel {
+      position: relative; z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 60px 80px 40px;
+      background: var(--black);
+    }
+
+    /* Red glow */
+    .hero-text-panel::before {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(196,24,24,0.1) 0%, transparent 65%);
+      top: 20%; right: -10%;
+      border-radius: 50%;
+      animation: glowPulse 5s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%,100% { opacity:.6; transform:scale(1); }
+      50%      { opacity:1;  transform:scale(1.1); }
+    }
+
+    .hero-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 56px;
+      text-decoration: none;
+      opacity: 0;
+      animation: fadeUp .8s ease forwards .2s;
+    }
+    .hero-logo img {
+      height: 32px; width: 32px;
+      object-fit: cover;
+    }
+    .hero-logo-text {
+      font-family: var(--serif);
+      font-size: 0.75rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .event-day {
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp .8s ease forwards .35s;
+    }
+
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 7vw, 7rem);
+      font-weight: 300;
+      line-height: 0.9;
+      color: var(--white);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards .5s;
+    }
+    .hero-headline em { font-style: italic; color: var(--red-bright); }
+
+    .hero-sub {
+      font-family: var(--serif);
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 36px;
+      opacity: 0;
+      animation: fadeUp .8s ease forwards .65s;
+    }
+
+    /* Offer callout */
+    .offer-box {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border: 1px solid rgba(196,24,24,0.5);
+      background: rgba(139,18,18,0.08);
+      padding: 20px 24px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp .8s ease forwards .8s;
+    }
+    .offer-icon { font-size: 2rem; flex-shrink: 0; }
+    .offer-text-wrap {}
+    .offer-label {
+      font-size: 0.52rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 4px;
+    }
+    .offer-text {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--white);
+    }
+    .offer-text em { font-style: italic; color: var(--red-bright); }
+
+    .hero-cta {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .8s ease forwards 1s;
+    }
+    .btn-red {
+      padding: 15px 40px;
+      background: var(--red);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border: 1px solid var(--red-mid);
+      transition: background .25s, transform .15s;
+    }
+    .btn-red:hover { background: var(--red-bright); transform: translateY(-1px); }
+    .btn-ghost {
+      padding: 15px 32px;
+      border: 1px solid rgba(240,224,208,0.25);
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      transition: border-color .25s, color .25s;
+    }
+    .btn-ghost:hover { border-color: var(--cream); color: var(--cream); }
+
+    /* ── RED STRIP ────────────────────────────────────────────── */
+    .red-strip {
+      background: var(--red);
+      padding: 14px 0;
+      overflow: hidden;
+      position: relative; z-index: 2;
+    }
+    .marquee-track {
+      display: flex;
+      animation: marquee 20s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-item {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      padding: 0 36px;
+      flex-shrink: 0;
+    }
+    .marquee-item span { color: rgba(255,255,255,0.45); }
+    @keyframes marquee {
+      from { transform:translateX(0); } to { transform:translateX(-50%); }
+    }
+
+    /* ── PERKS ────────────────────────────────────────────────── */
+    .perks {
+      position: relative; z-index: 2;
+      padding: 120px 0;
+      background: var(--dark);
+      border-bottom: 1px solid var(--line-red);
+    }
+    .perks-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+    .section-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .perks-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 64px;
+      line-height: 1.15;
+    }
+    .perks-title em { font-style: italic; color: var(--red-bright); }
+
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 2px;
+    }
+    .perk-card {
+      border: 1px solid var(--line-red);
+      padding: 48px 32px;
+      background: rgba(139,18,18,0.03);
+      transition: background .3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .perk-card:hover { background: rgba(139,18,18,0.09); }
+    .perk-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red-bright), transparent);
+      transform: scaleX(0);
+      transition: transform .4s;
+    }
+    .perk-card:hover::after { transform: scaleX(1); }
+    .perk-num {
+      font-family: var(--serif);
+      font-size: 5rem;
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(196,24,24,0.1);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .perk-icon { font-size: 1.8rem; margin-bottom: 16px; display: block; }
+    .perk-name {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .perk-desc {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    /* ── FORM ─────────────────────────────────────────────────── */
+    #register {
+      position: relative; z-index: 2;
+      padding: 120px 0;
+      background: var(--black);
+    }
+    .form-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(196,24,24,0.06) 0%, transparent 65%);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .form-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative; z-index: 2;
+    }
+    .form-header {
+      text-align: center;
+      margin-bottom: 52px;
+    }
+    .form-title {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .form-title em { font-style: italic; color: var(--red-bright); }
+    .form-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .form-card {
+      background: rgba(139,18,18,0.04);
+      border: 1px solid var(--line-red);
+      padding: 52px 48px;
+      position: relative;
+    }
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 75%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red-bright), transparent);
+    }
+
+    .field-group { margin-bottom: 26px; }
+    .field-label {
+      display: block;
+      font-size: 0.56rem;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: rgba(240, 200, 190, 0.85);
+      margin-bottom: 9px;
+      transition: color 0.2s;
+    }
+    .field-group:focus-within .field-label { color: var(--cream); }
+    .field-input {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(139,18,18,0.35);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 300;
+      padding: 14px 18px;
+      outline: none;
+      transition: border-color .25s, background .25s;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+    .field-input::placeholder { color: rgba(240,224,208,0.2); }
+    .field-input:focus {
+      border-color: var(--red-bright);
+      background: rgba(196,24,24,0.05);
+    }
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .field-select {
+      width: 100%;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(139,18,18,0.35);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 300;
+      padding: 14px 18px;
+      outline: none;
+      cursor: pointer;
+      transition: border-color .25s;
+      -webkit-appearance: none;
+      border-radius: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%23C41818' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+    }
+    .field-select:focus { border-color: var(--red-bright); }
+    .field-select option { background: #111; color: var(--cream); }
+
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 36px;
+      cursor: pointer;
+    }
+    .checkbox-group input[type="checkbox"] {
+      appearance: none;
+      width: 18px; height: 18px;
+      min-width: 18px;
+      border: 1px solid rgba(139,18,18,0.6);
+      background: transparent;
+      cursor: pointer;
+      margin-top: 3px;
+      position: relative;
+      transition: border-color .2s, background .2s;
+    }
+    .checkbox-group input[type="checkbox"]:checked {
+      background: var(--red-bright);
+      border-color: var(--red-bright);
+    }
+    .checkbox-group input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 5px;
+      width: 6px; height: 10px;
+      border: 2px solid var(--white);
+      border-top: none; border-left: none;
+      transform: rotate(45deg);
+    }
+    .checkbox-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .checkbox-label a { color: var(--red-bright); text-decoration: none; }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--red);
+      border: 1px solid var(--red-mid);
+      color: var(--white);
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      padding: 18px;
+      cursor: pointer;
+      transition: background .25s, transform .15s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-submit::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: -100%;
+      width: 100%; height: 200%;
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-50%) skewX(-15deg);
+      transition: left .4s ease;
+    }
+    .btn-submit:hover { background: var(--red-bright); transform: translateY(-1px); }
+    .btn-submit:hover::before { left: 150%; }
+
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 60px 32px;
+    }
+    .success-icon {
+      width: 64px; height: 64px;
+      border: 1px solid var(--red-bright);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 1.5rem;
+    }
+    .success-title {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 14px;
+    }
+    .success-title em { font-style: italic; color: var(--red-bright); }
+    .success-text {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+    .success-badge {
+      display: inline-block;
+      border: 1px solid var(--red-bright);
+      padding: 14px 36px;
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--red-bright);
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+    .success-note {
+      font-size: 0.6rem;
+      color: var(--red-bright);
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+    }
+
+    .form-note {
+      text-align: center;
+      margin-top: 18px;
+      font-size: 0.68rem;
+      color: rgba(240,224,208,0.25);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── INFO STRIP ───────────────────────────────────────────── */
+    .info-strip {
+      position: relative; z-index: 2;
+      background: var(--deep);
+      border-top: 1px solid var(--line-red);
+      padding: 64px 0;
+    }
+    .info-strip-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 60px;
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 2px;
+    }
+    .info-item {
+      border: 1px solid var(--line-red);
+      padding: 32px 28px;
+      text-align: center;
+      transition: background .25s;
+    }
+    .info-item:hover { background: rgba(139,18,18,0.06); }
+    .info-icon { font-size: 1.6rem; margin-bottom: 12px; display: block; }
+    .info-label {
+      font-size: 0.52rem;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .info-val {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--cream);
+      line-height: 1.5;
+    }
+    .info-val a { color: var(--cream); text-decoration: none; }
+
+    /* ── FOOTER ───────────────────────────────────────────────── */
+    footer {
+      position: relative; z-index: 2;
+      background: var(--black);
+      border-top: 1px solid var(--line-red);
+      padding: 48px 60px 36px;
+      text-align: center;
+    }
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .footer-logo img { height: 36px; width: 36px; object-fit: cover; }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--white);
+    }
+    .footer-brand em { font-style: italic; color: var(--red-bright); }
+    .footer-address {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+      letter-spacing: 0.05em;
+    }
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 28px;
+    }
+    .footer-socials a {
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-socials a:hover { color: var(--red-bright); }
+    .footer-copy { font-size: 0.6rem; color: rgba(240,224,208,0.2); letter-spacing: 0.08em; }
+    .back-link {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 0.6rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: opacity .2s;
+    }
+    .back-link:hover { opacity: 1; }
+
+    /* ── Map section ────────────────────────────────────────────── */
+    .map-section {
+      position: relative; z-index: 2;
+      background: var(--black);
+      padding: 80px 0 0;
+      border-top: 1px solid var(--line-red);
+    }
+    .map-header {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 0 24px 48px;
+      text-align: center;
+    }
+    .map-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .map-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.8;
+      letter-spacing: 0.04em;
+    }
+    .map-embed {
+      position: relative;
+      height: 420px;
+      overflow: hidden;
+    }
+    .map-overlay-pill {
+      position: absolute;
+      bottom: 24px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--red);
+      border: 1px solid var(--red-mid);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--white);
+      white-space: nowrap;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    }
+
+    /* ── Animations ───────────────────────────────────────────── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(26px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    .reveal { opacity:0; transform:translateY(32px); transition:opacity .8s ease, transform .8s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .rd1 { transition-delay:.1s; }
+    .rd2 { transition-delay:.2s; }
+    .rd3 { transition-delay:.3s; }
+
+    @keyframes shake {
+      0%,100% { transform:translateX(0); }
+      20%      { transform:translateX(-5px); }
+      40%      { transform:translateX(5px); }
+      60%      { transform:translateX(-3px); }
+      80%      { transform:translateX(3px); }
+    }
+
+    /* ── Scroll progress ────────────────────────────────────── */
+    #scroll-progress {
+      position: fixed; top: 0; left: 0;
+      height: 2px; width: 0%;
+      background: var(--red-bright);
+      z-index: 200;
+      box-shadow: 0 0 8px rgba(196,24,24,0.8);
+    }
+
+    /* ── Field focus glow ───────────────────────────────────── */
+    .field-input:focus, .field-select:focus {
+      border-color: var(--red-bright);
+      box-shadow: 0 0 0 3px rgba(196,24,24,0.12), 0 0 16px rgba(196,24,24,0.08);
+    }
+
+    /* ── Sparkle particle ───────────────────────────────────── */
+    .sparkle {
+      position: fixed;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── Reduced motion ─────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ── Mobile ───────────────────────────────────────────────── */
+    @media (max-width:900px) {
+      .hero { grid-template-columns:1fr; min-height:auto; }
+      .hero-img-panel { height: 45vh; }
+      .hero-img-panel::after { background: linear-gradient(to bottom, rgba(6,4,4,0) 40%, rgba(6,4,4,1) 100%); }
+      .hero-text-panel { padding: 48px 24px 60px; }
+      .perks-inner, .form-inner { padding: 0 24px; }
+      .perks-grid { grid-template-columns:1fr; }
+      .form-card { padding: 36px 24px; }
+      .field-row { grid-template-columns:1fr; }
+      .info-strip-inner { grid-template-columns:1fr; padding:0 24px; }
+      footer { padding:40px 24px 28px; }
+      .perks, #register { padding:80px 0; }
+      .info-strip { padding:48px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="scroll-progress"></div>
+
+  <!-- ── HERO ──────────────────────────────────────────────────── -->
+  <section class="hero">
+    <!-- Left: image -->
+    <div class="hero-img-panel">
+      <img src="Bacarat Bangkok/5010916.jpg" alt="Baccarat Bangkok" />
+    </div>
+
+    <!-- Right: text -->
+    <div class="hero-text-panel">
+      <a href="index.html" class="hero-logo">
+        <img src="Bacarat Bangkok/images.png" alt="Baccarat" />
+        <span class="hero-logo-text">Baccarat Bangkok</span>
+      </a>
+
+      <p class="event-day">Every Wednesday Night</p>
+
+      <h1 class="hero-headline">
+        Ladies<br /><em>Night</em>
+      </h1>
+      <p class="hero-sub">Bangkok's most intimate evening — reserved for you.</p>
+
+      <div class="offer-box">
+        <span class="offer-icon">🥂</span>
+        <div class="offer-text-wrap">
+          <div class="offer-label">Welcome Offer</div>
+          <div class="offer-text">Sign up &amp; receive <em>3 free welcome drinks</em> on arrival</div>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#register" class="btn-red">Claim My Drinks →</a>
+        <a href="index.html" class="btn-ghost">Main Site</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── RED STRIP ─────────────────────────────────────────────── -->
+  <div class="red-strip">
+    <div class="marquee-track">
+      <span class="marquee-item">Ladies Night <span>✦</span></span>
+      <span class="marquee-item">3 Welcome Drinks <span>✦</span></span>
+      <span class="marquee-item">Every Wednesday <span>✦</span></span>
+      <span class="marquee-item">Priority Entry <span>✦</span></span>
+      <span class="marquee-item">Baccarat Bangkok <span>✦</span></span>
+      <span class="marquee-item">Sukhumvit 24 <span>✦</span></span>
+      <span class="marquee-item">House Music <span>✦</span></span>
+      <span class="marquee-item">Ladies Night <span>✦</span></span>
+      <span class="marquee-item">3 Welcome Drinks <span>✦</span></span>
+      <span class="marquee-item">Every Wednesday <span>✦</span></span>
+      <span class="marquee-item">Priority Entry <span>✦</span></span>
+      <span class="marquee-item">Baccarat Bangkok <span>✦</span></span>
+      <span class="marquee-item">Sukhumvit 24 <span>✦</span></span>
+      <span class="marquee-item">House Music <span>✦</span></span>
+    </div>
+  </div>
+
+  <!-- ── PERKS ──────────────────────────────────────────────────── -->
+  <section class="perks">
+    <div class="perks-inner">
+      <span class="section-label reveal">What You Get</span>
+      <h2 class="perks-title reveal rd1">Your <em>night</em> starts<br />before you arrive.</h2>
+      <div class="perks-grid">
+        <div class="perk-card reveal rd1">
+          <div class="perk-num">1</div>
+          <span class="perk-icon">🍸</span>
+          <h3 class="perk-name">3 Welcome Drinks</h3>
+          <p class="perk-desc">Three complimentary cocktails waiting on arrival. Handcrafted, beautiful, and yours. Your registration is the key.</p>
+        </div>
+        <div class="perk-card reveal rd2">
+          <div class="perk-num">2</div>
+          <span class="perk-icon">⚡</span>
+          <h3 class="perk-name">Priority Entry</h3>
+          <p class="perk-desc">Your name is on the list. No queuing — walk straight in and start your night the right way.</p>
+        </div>
+        <div class="perk-card reveal rd3">
+          <div class="perk-num">3</div>
+          <span class="perk-icon">✨</span>
+          <h3 class="perk-name">Preferred Seating</h3>
+          <p class="perk-desc">Groups of 4+ receive preferred booth seating. The best spots in the room — intimate, low-lit, and right in the atmosphere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FORM ───────────────────────────────────────────────────── -->
+  <section id="register">
+    <div class="form-glow"></div>
+    <div class="form-inner">
+      <div class="form-header reveal">
+        <span class="section-label">Registration</span>
+        <h2 class="form-title">Reserve your<br /><em>welcome drinks.</em></h2>
+        <p class="form-desc">Fill in your details. We'll confirm via WhatsApp or LINE before the night. Simple as that.</p>
+      </div>
+
+      <div class="form-card reveal rd1">
+        <form id="signupForm" novalidate>
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label" for="fname">First Name</label>
+              <input class="field-input" type="text" id="fname" name="first_name" placeholder="Natasha" required />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="lname">Last Name</label>
+              <input class="field-input" type="text" id="lname" name="last_name" placeholder="K." required />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="phone">WhatsApp / Phone Number</label>
+            <input class="field-input" type="tel" id="phone" name="phone" placeholder="+66 8X XXX XXXX" required />
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="email">Email Address (Optional)</label>
+            <input class="field-input" type="email" id="email" name="email" placeholder="you@email.com" />
+          </div>
+
+          <div class="field-row">
+            <div class="field-group">
+              <label class="field-label" for="guests">Group Size</label>
+              <select class="field-select" id="guests" name="guests" required>
+                <option value="" disabled selected>Select</option>
+                <option value="1">Just me</option>
+                <option value="2">2 ladies</option>
+                <option value="3">3 ladies</option>
+                <option value="4">4 ladies</option>
+                <option value="5">5 ladies</option>
+                <option value="6+">6 or more</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="date">Wednesday Date</label>
+              <select class="field-select" id="date" name="preferred_date" required>
+                <option value="" disabled selected>Choose</option>
+                <option value="w1">Wed 18 June 2025</option>
+                <option value="w2">Wed 25 June 2025</option>
+                <option value="w3">Wed 2 July 2025</option>
+                <option value="w4">Wed 9 July 2025</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="checkbox-group" for="agree">
+            <input type="checkbox" id="agree" name="agree" required />
+            <span class="checkbox-label">
+              I confirm this registration entitles registered ladies to 3 welcome drinks each. I understand the <a href="#">dress code</a> (upscale casual — no shorts or sandals) applies.
+            </span>
+          </label>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            Claim My 3 Welcome Drinks →
+          </button>
+        </form>
+
+        <div class="success-state" id="successState">
+          <div class="success-icon">✦</div>
+          <h3 class="success-title">You're on the <em>list.</em></h3>
+          <p class="success-text">We'll confirm via WhatsApp before the night.<br />Three drinks are waiting for you. See you Wednesday.</p>
+          <div class="success-badge">LADIES · BACCARAT</div>
+          <p class="success-note">Show this page at the door</p>
+        </div>
+      </div>
+
+      <p class="form-note">Ladies only · Subject to availability · Management reserves the right of entry</p>
+    </div>
+  </section>
+
+  <!-- ── INFO STRIP ─────────────────────────────────────────────── -->
+  <div class="info-strip">
+    <div class="info-strip-inner">
+      <div class="info-item reveal">
+        <span class="info-icon">📍</span>
+        <span class="info-label">Location</span>
+        <div class="info-val">The Davis Bangkok Hotel<br />Sukhumvit Soi 24</div>
+      </div>
+      <div class="info-item reveal rd1">
+        <span class="info-icon">📞</span>
+        <span class="info-label">Bookings</span>
+        <div class="info-val">
+          <a href="tel:+66809799958">+66 80 979 9958</a><br />
+          <span style="font-size:0.82rem;color:var(--muted);">LINE: @BACCARATbangkok</span>
+        </div>
+      </div>
+      <div class="info-item reveal rd2">
+        <span class="info-icon">👗</span>
+        <span class="info-label">Dress Code</span>
+        <div class="info-val">Upscale Casual<br /><span style="font-size:0.82rem;color:var(--muted);">No shorts · No sandals</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MAP ──────────────────────────────────────────────────────── -->
+  <section class="map-section">
+    <div class="map-header reveal">
+      <span class="section-label">Find Us</span>
+      <h2 class="map-title">The Davis Bangkok Hotel</h2>
+      <p class="map-sub">88 Sukhumvit Soi 24 · Khlong Toei · Bangkok 10110<br />BTS Phrom Phong — 8 minute walk · Parking available on-site</p>
+    </div>
+    <div class="map-embed reveal rd1">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.9887447988857!2d100.56499847596978!3d13.724488986695396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e29f17f6b3e315%3A0x8cc4abaed81ef2d3!2sThe%20Davis%20Bangkok!5e0!3m2!1sen!2sth!4v1718000000000!5m2!1sen!2sth"
+        width="100%" height="100%"
+        style="border:0; filter:invert(90%) hue-rotate(180deg) brightness(0.85) contrast(1.1) saturate(0.6);"
+        allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Baccarat Bangkok location">
+      </iframe>
+      <div class="map-overlay-pill">
+        <span>🍸</span>
+        <span>Baccarat Bangkok · Soi 24</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-logo">
+      <img src="Bacarat Bangkok/images.png" alt="Baccarat" />
+      <div class="footer-brand">Bacc<em>arat</em> Bangkok</div>
+    </div>
+    <div class="footer-address">The Davis Bangkok Hotel · 88 Sukhumvit Soi 24 · Bangkok, Thailand</div>
+    <div class="footer-socials">
+      <a href="https://instagram.com/baccaratbangkok" target="_blank">Instagram</a>
+      <a href="https://lin.ee/du38qLs" target="_blank">LINE</a>
+      <a href="https://wa.me/66809799958" target="_blank">WhatsApp</a>
+      <a href="https://facebook.com/Baccaratbangkok" target="_blank">Facebook</a>
+    </div>
+    <div class="footer-copy">© 2025 Baccarat Bangkok · All rights reserved</div>
+    <br />
+    <a href="index.html" class="back-link">← Back to main site</a>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* ── Scroll progress ─────────────────────────────────────── */
+    const progBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+      progBar.style.width = pct + '%';
+    });
+
+    /* ── Hero split-panel entrance ───────────────────────────── */
+    gsap.from('.hero-img-panel', {
+      x: '-6%', opacity: 0,
+      duration: 1.1, ease: 'power3.out', delay: 0.1
+    });
+    gsap.from('.hero-text-panel', {
+      x: '4%', opacity: 0,
+      duration: 1.1, ease: 'power3.out', delay: 0.2
+    });
+    gsap.from('.hero-logo',    { opacity:0, y:-12, duration:0.6, delay:0.5, ease:'power3.out' });
+    gsap.from('.event-day',    { opacity:0, y:16,  duration:0.7, delay:0.65, ease:'power3.out' });
+    gsap.from('.hero-headline',{ opacity:0, y:30,  duration:0.9, delay:0.8,  ease:'power3.out' });
+    gsap.from('.hero-sub',     { opacity:0, y:20,  duration:0.7, delay:1.0,  ease:'power3.out' });
+    gsap.from('.offer-box',    { opacity:0, y:20,  duration:0.7, delay:1.15, ease:'power3.out' });
+    gsap.from('.hero-cta',     { opacity:0, y:20,  duration:0.7, delay:1.3,  ease:'power3.out' });
+
+    /* ── Scroll reveals ──────────────────────────────────────── */
+    gsap.utils.toArray('.reveal').forEach(el => {
+      const delay = el.classList.contains('rd3') ? 0.3
+                  : el.classList.contains('rd2') ? 0.2
+                  : el.classList.contains('rd1') ? 0.1 : 0;
+      gsap.from(el, {
+        opacity: 0, y: 38, duration: 0.85, delay,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 83%' }
+      });
+      el.style.opacity = '';
+      el.style.transform = '';
+    });
+
+    /* ── Perk cards stagger ──────────────────────────────────── */
+    gsap.from('.perk-card', {
+      opacity: 0, y: 48, stagger: 0.15, duration: 0.9,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.perks-grid', start: 'top 78%' }
+    });
+
+    /* ── Magnetic buttons ────────────────────────────────────── */
+    document.querySelectorAll('.btn-red, .btn-submit, .btn-ghost').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width  / 2) * 0.28;
+        const y = (e.clientY - r.top  - r.height / 2) * 0.28;
+        gsap.to(btn, { x, y, duration: 0.3, ease: 'power2.out' });
+      });
+      btn.addEventListener('mouseleave', () => {
+        gsap.to(btn, { x: 0, y: 0, duration: 0.55, ease: 'power3.out' });
+      });
+    });
+
+    /* ── Form: focus ring pulse ──────────────────────────────── */
+    document.querySelectorAll('.field-input, .field-select').forEach(el => {
+      el.addEventListener('focus', () => {
+        gsap.fromTo(el, { boxShadow: '0 0 0 0px rgba(196,24,24,0)' },
+                        { boxShadow: '0 0 0 3px rgba(196,24,24,0.18)', duration: 0.3 });
+      });
+      el.addEventListener('blur', () => {
+        gsap.to(el, { boxShadow: '0 0 0 0px rgba(196,24,24,0)', duration: 0.25 });
+      });
+    });
+
+    /* ── Form submit + sparkle ───────────────────────────────── */
+    const form      = document.getElementById('signupForm');
+    const success   = document.getElementById('successState');
+    const submitBtn = document.getElementById('submitBtn');
+
+    function spawnSparkles() {
+      const colors = ['#C41818','#E85555','#FAF5F0','#C4903A','#ff9999'];
+      for (let i = 0; i < 28; i++) {
+        const s = document.createElement('div');
+        s.className = 'sparkle';
+        s.style.background = colors[Math.floor(Math.random() * colors.length)];
+        document.body.appendChild(s);
+        const rect = success.getBoundingClientRect();
+        const sx = rect.left + rect.width / 2;
+        const sy = rect.top + 80;
+        gsap.set(s, { x: sx, y: sy });
+        gsap.to(s, {
+          x: sx + (Math.random() - 0.5) * 280,
+          y: sy + (Math.random() - 0.5) * 280,
+          opacity: 0,
+          scale: Math.random() * 1.5 + 0.5,
+          duration: 0.8 + Math.random() * 0.6,
+          ease: 'power2.out',
+          onComplete: () => s.remove()
+        });
+      }
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const fname  = document.getElementById('fname').value.trim();
+      const phone  = document.getElementById('phone').value.trim();
+      const guests = document.getElementById('guests').value;
+      const date   = document.getElementById('date').value;
+      const agreed = document.getElementById('agree').checked;
+
+      if (!fname || !phone || !guests || !date || !agreed) {
+        gsap.to(submitBtn, {
+          x: [-6, 6, -5, 5, -3, 3, 0], duration: 0.4,
+          ease: 'none', clearProps: 'x'
+        });
+        const orig = submitBtn.textContent;
+        submitBtn.textContent = 'Please fill all required fields';
+        setTimeout(() => { submitBtn.textContent = orig; }, 2200);
+        return;
+      }
+
+      submitBtn.textContent = 'Confirming your spot…';
+      submitBtn.disabled = true;
+
+      gsap.to(submitBtn, { opacity: 0.6, duration: 0.2 });
+
+      setTimeout(() => {
+        form.style.display = 'none';
+        success.style.display = 'block';
+        gsap.from(success, { opacity: 0, y: 20, duration: 0.6, ease: 'power3.out' });
+        gsap.from('.success-icon', { scale: 0, duration: 0.5, ease: 'back.out(2)', delay: 0.2 });
+        gsap.from('.success-title', { opacity: 0, y: 16, duration: 0.5, delay: 0.35 });
+        gsap.from('.success-badge', { opacity: 0, scale: 0.9, duration: 0.5, delay: 0.5 });
+        setTimeout(spawnSparkles, 400);
+        document.getElementById('register').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 900);
+    });
+
+    /* ── Smooth anchor scroll ────────────────────────────────── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+  </script>
+</body>
+</html>

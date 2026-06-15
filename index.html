@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BACCARAT BANGKOK — Moody. Sexy. Intimate.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:      #060404;
+      --dark:       #0e0606;
+      --deep:       #160808;
+      --red:        #8B1212;
+      --red-mid:    #A81515;
+      --red-bright: #C41818;
+      --red-glow:   rgba(196,24,24,0.18);
+      --amber:      #C4903A;
+      --amber-dim:  #8A6020;
+      --amber-pale: #E8CC9A;
+      --cream:      #F0E0D0;
+      --white:      #FAF5F0;
+      --muted:      rgba(240,224,208,0.5);
+      --line-red:   rgba(139,18,18,0.4);
+      --line-amb:   rgba(196,144,58,0.2);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    #cursor {
+      position: fixed;
+      width: 8px; height: 8px;
+      background: var(--red-bright);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%,-50%);
+      mix-blend-mode: screen;
+    }
+    #cursor-ring {
+      position: fixed;
+      width: 34px; height: 34px;
+      border: 1px solid rgba(196,24,24,0.6);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: left .12s ease, top .12s ease;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--red); }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background .4s, padding .4s;
+    }
+    nav.scrolled {
+      background: rgba(6,4,4,0.95);
+      backdrop-filter: blur(18px);
+      padding: 16px 48px;
+      border-bottom: 1px solid var(--line-red);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      height: 36px; width: 36px;
+      object-fit: cover;
+    }
+    .nav-logo-text {
+      font-family: var(--serif);
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      color: var(--white);
+      text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--red-bright); }
+    .nav-reserve {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      background: var(--red);
+      border: 1px solid var(--red-mid);
+      padding: 10px 24px;
+      text-decoration: none;
+      transition: background .25s;
+    }
+    .nav-reserve:hover { background: var(--red-bright); }
+
+    /* HERO */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-img {
+      position: absolute; inset: 0;
+      background: url('Bacarat Bangkok/Q524tReNnAnmuqp47gXtVoUtA0PdrBjmlWRb2Yl54r.webp') center center / cover no-repeat;
+      z-index: 0;
+    }
+    .hero-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to top, rgba(6,4,4,0.97) 0%, rgba(6,4,4,0.7) 40%, rgba(6,4,4,0.3) 70%, rgba(6,4,4,0.1) 100%),
+        linear-gradient(to right, rgba(6,4,4,0.55) 0%, transparent 65%);
+    }
+    .hero-glow {
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(196,24,24,0.12) 0%, transparent 65%);
+      bottom: 5%; left: -5%;
+      border-radius: 50%;
+      z-index: 1;
+      animation: glowPulse 5s ease-in-out infinite;
+    }
+    @keyframes glowPulse {
+      0%,100% { opacity:.6; transform:scale(1); }
+      50%      { opacity:1;  transform:scale(1.1); }
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 60px 80px;
+      max-width: 900px;
+    }
+    .hero-eyebrow {
+      font-size: 0.6rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 20px;
+      display: block;
+      opacity: 0;
+      animation: fadeUp .9s ease forwards .3s;
+    }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(5rem, 13vw, 12rem);
+      font-weight: 300;
+      line-height: 0.88;
+      color: var(--white);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 1.1s ease forwards .5s;
+    }
+    .hero-title em { font-style: italic; color: var(--red-bright); }
+    .hero-tagline {
+      display: flex; align-items: center; gap: 18px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp .9s ease forwards .75s;
+    }
+    .tagline-word {
+      font-size: 0.65rem;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+    .tagline-sep {
+      width: 3px; height: 3px;
+      background: var(--red-bright);
+      border-radius: 50%;
+    }
+    .hero-cta {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp .9s ease forwards 1s;
+    }
+    .btn-red {
+      padding: 15px 44px;
+      background: var(--red);
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border: 1px solid var(--red-mid);
+      transition: background .25s, transform .15s;
+    }
+    .btn-red:hover { background: var(--red-bright); transform: translateY(-1px); }
+    .btn-ghost {
+      padding: 15px 44px;
+      border: 1px solid rgba(240,224,208,0.3);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      transition: border-color .25s, transform .15s;
+    }
+    .btn-ghost:hover { border-color: var(--cream); transform: translateY(-1px); }
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px; right: 60px;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 1.5s;
+    }
+    .scroll-label {
+      writing-mode: vertical-lr;
+      font-size: 0.5rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+    }
+    .scroll-line {
+      width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--red-bright), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100% { opacity:.4; transform:scaleY(1); }
+      50%      { opacity:1;  transform:scaleY(1.2); }
+    }
+
+    /* MARQUEE */
+    .marquee-bar {
+      position: relative; z-index: 2;
+      background: var(--red);
+      padding: 14px 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex;
+      animation: marquee 22s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-item {
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      padding: 0 36px;
+      flex-shrink: 0;
+    }
+    .marquee-item span { color: rgba(255,255,255,0.5); }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ABOUT */
+    #about {
+      position: relative; z-index: 2;
+      padding: 140px 0;
+      background: var(--dark);
+    }
+    .about-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-img-wrap { position: relative; }
+    .about-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.88) contrast(1.06);
+    }
+    .about-img-wrap::before {
+      content: '';
+      position: absolute;
+      top: 20px; left: -20px; right: 20px; bottom: -20px;
+      border: 1px solid var(--line-red);
+      z-index: -1;
+    }
+    .about-img-label {
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      background: var(--red);
+      padding: 12px 20px;
+      font-size: 0.55rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+    }
+    .about-text-col { padding-left: 20px; }
+    .section-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 20px;
+      display: block;
+    }
+    .about-heading {
+      font-family: var(--serif);
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+    .about-heading em { font-style: italic; color: var(--red-bright); }
+    .about-p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.9;
+      margin-bottom: 18px;
+    }
+    .about-p strong { color: var(--cream); font-weight: 400; }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 48px;
+    }
+    .stat {
+      border: 1px solid var(--line-red);
+      padding: 24px 20px;
+      transition: background .25s;
+    }
+    .stat:hover { background: rgba(139,18,18,0.08); }
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 2.4rem;
+      font-weight: 300;
+      color: var(--red-bright);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* FULL BLEED */
+    .full-bleed {
+      position: relative; z-index: 2;
+      height: 55vh;
+      overflow: hidden;
+    }
+    .full-bleed img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 40%;
+      filter: brightness(0.72) contrast(1.1);
+      display: block;
+    }
+    .full-bleed-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(6,4,4,0.5) 0%, rgba(6,4,4,0.25) 50%, rgba(6,4,4,0.6) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .full-bleed-quote {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      font-weight: 300;
+      font-style: italic;
+      color: var(--white);
+      text-align: center;
+      letter-spacing: 0.04em;
+      max-width: 700px;
+      padding: 0 24px;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.8);
+    }
+    .full-bleed-quote em { color: var(--red-bright); font-style: normal; }
+
+    /* EXPERIENCE */
+    #experience {
+      position: relative; z-index: 2;
+      padding: 140px 0;
+      background: var(--black);
+    }
+    .exp-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+    .exp-header { text-align: center; margin-bottom: 72px; }
+    .exp-title {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.15;
+    }
+    .exp-title em { font-style: italic; color: var(--red-bright); }
+    .gold-divider {
+      display: flex; align-items: center; gap: 14px;
+      max-width: 180px;
+      margin: 20px auto 0;
+    }
+    .gold-divider::before { content:''; flex:1; height:1px; background: linear-gradient(90deg, transparent, var(--red)); }
+    .gold-divider::after  { content:''; flex:1; height:1px; background: linear-gradient(90deg, var(--red), transparent); }
+    .div-diamond { width:5px; height:5px; background:var(--red-bright); transform:rotate(45deg); }
+    .exp-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 2px;
+    }
+    .exp-card {
+      border: 1px solid var(--line-red);
+      padding: 52px 36px;
+      background: rgba(139,18,18,0.03);
+      transition: background .3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .exp-card:hover { background: rgba(139,18,18,0.08); }
+    .exp-card::before {
+      content:''; position:absolute;
+      top:0; left:0; right:0; height:2px;
+      background: linear-gradient(90deg, transparent, var(--red-bright), transparent);
+      transform: scaleX(0);
+      transition: transform .4s;
+    }
+    .exp-card:hover::before { transform: scaleX(1); }
+    .card-n {
+      font-family: var(--serif);
+      font-size: 0.7rem;
+      color: var(--red-bright);
+      letter-spacing: 0.2em;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .card-h {
+      font-family: var(--serif);
+      font-size: 1.9rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .card-p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    /* RESERVATIONS */
+    #reservations {
+      position: relative; z-index: 2;
+      padding: 140px 0;
+      background: var(--deep);
+      border-top: 1px solid var(--line-red);
+    }
+    .res-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 60px;
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .res-vline { background: var(--line-red); }
+    .res-h {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 32px;
+    }
+    .res-h em { font-style: italic; color: var(--red-bright); }
+    .res-p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.9;
+      margin-bottom: 40px;
+    }
+    .contact-block { margin-bottom: 28px; }
+    .c-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .c-value {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: var(--cream);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .c-value:hover { color: var(--white); }
+    .dress-box {
+      margin-top: 44px;
+      border: 1px solid var(--line-red);
+      padding: 28px;
+      position: relative;
+    }
+    .dress-box::before {
+      content: 'Dress Code';
+      position: absolute;
+      top: -8px; left: 20px;
+      font-size: 0.52rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      background: var(--deep);
+      padding: 0 8px;
+    }
+    .dress-rule {
+      font-size: 0.82rem;
+      color: var(--muted);
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(139,18,18,0.15);
+      display: flex;
+      gap: 10px;
+    }
+    .dress-rule:last-child { border-bottom: none; padding-bottom: 0; }
+    .dress-rule::before { content:'—'; color:var(--red-bright); flex-shrink:0; }
+    .info-cells {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-bottom: 32px;
+    }
+    .info-cell {
+      border: 1px solid var(--line-red);
+      padding: 24px 20px;
+      transition: background .25s;
+    }
+    .info-cell:hover { background: rgba(139,18,18,0.06); }
+    .ic-label {
+      font-size: 0.52rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 8px;
+      display: block;
+    }
+    .ic-val {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--cream);
+      line-height: 1.4;
+    }
+    .ladies-cta-box {
+      border: 1px solid var(--line-amb);
+      padding: 28px;
+      background: rgba(196,144,58,0.04);
+      text-align: center;
+    }
+    .ladies-cta-label {
+      font-size: 0.55rem;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .ladies-cta-title {
+      font-family: var(--serif);
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .ladies-cta-title em { font-style: italic; color: var(--amber); }
+    .ladies-cta-sub {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+    .btn-amber {
+      display: inline-block;
+      padding: 12px 32px;
+      background: var(--amber);
+      color: var(--black);
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background .25s;
+    }
+    .btn-amber:hover { background: var(--amber-pale); }
+
+    /* FOOTER */
+    footer {
+      position: relative; z-index: 2;
+      background: var(--black);
+      border-top: 1px solid var(--line-red);
+      padding: 60px 60px 40px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 56px;
+    }
+    .footer-logo-wrap { display: flex; align-items: center; gap: 14px; }
+    .footer-logo-img { height: 48px; width: 48px; object-fit: cover; }
+    .footer-brand {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--white);
+    }
+    .footer-brand em { font-style: italic; color: var(--red-bright); }
+    .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+    .footer-links a {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--red-bright); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 28px;
+      border-top: 1px solid var(--line-red);
+    }
+    .footer-copy { font-size: 0.62rem; color: rgba(240,224,208,0.2); letter-spacing: 0.08em; }
+    .footer-tagline { font-family: var(--serif); font-size: 0.85rem; font-style: italic; color: var(--red-bright); }
+
+    @keyframes fadeUp  { from { opacity:0; transform:translateY(28px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+    .reveal { opacity:0; transform:translateY(36px); transition:opacity .85s ease, transform .85s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .rd1 { transition-delay:.1s; }
+    .rd2 { transition-delay:.2s; }
+    .rd3 { transition-delay:.3s; }
+
+    /* ── Preloader ──────────────────────────────────────────── */
+    #preloader {
+      position: fixed; inset: 0;
+      background: var(--black);
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+    }
+    .pre-word {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 6vw, 4rem);
+      font-weight: 300;
+      letter-spacing: 0.55em;
+      color: var(--white);
+      opacity: 0;
+    }
+    .pre-bar-wrap {
+      width: 180px; height: 1px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .pre-bar {
+      height: 100%;
+      width: 100%;
+      background: var(--red-bright);
+      transform: scaleX(0);
+      transform-origin: left;
+    }
+
+    /* ── Scroll progress ────────────────────────────────────── */
+    #scroll-progress {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      background: var(--red-bright);
+      z-index: 200;
+      width: 0%;
+      transform-origin: left;
+      box-shadow: 0 0 8px rgba(196,24,24,0.8);
+    }
+
+    /* ── Neon glow pulse on italic red text ─────────────────── */
+    .hero-title em {
+      animation: neonPulse 3s ease-in-out infinite;
+    }
+    @keyframes neonPulse {
+      0%,100% { text-shadow: 0 0 20px rgba(196,24,24,0.4), 0 0 40px rgba(196,24,24,0.2); }
+      50%      { text-shadow: 0 0 30px rgba(196,24,24,0.7), 0 0 60px rgba(196,24,24,0.4), 0 0 100px rgba(196,24,24,0.15); }
+    }
+
+    /* ── Image reveal overlay ───────────────────────────────── */
+    .about-img-wrap {
+      overflow: hidden;
+    }
+    .img-reveal-overlay {
+      position: absolute; inset: 0;
+      background: var(--dark);
+      z-index: 1;
+      transform-origin: right;
+    }
+
+    /* ── 3D card tilt setup ─────────────────────────────────── */
+    .exp-grid { perspective: 1000px; }
+    .exp-card { transform-style: preserve-3d; will-change: transform; }
+
+    /* ── Clip-path reveal for headings ──────────────────────── */
+    .clip-reveal {
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .clip-reveal.visible { clip-path: inset(0 0 0% 0); }
+
+    /* ── Cursor particle trail ──────────────────────────────── */
+    .cursor-particle {
+      position: fixed;
+      width: 4px; height: 4px;
+      background: var(--red-bright);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0;
+    }
+
+    /* ── Reduced motion override ────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    @media (max-width:900px) {
+      nav { padding:18px 24px; }
+      nav.scrolled { padding:12px 24px; }
+      .nav-links { display:none; }
+      .hero-content { padding:0 24px 60px; }
+      .about-inner { grid-template-columns:1fr; padding:0 24px; gap:48px; }
+      .about-text-col { padding-left:0; }
+      .exp-inner { padding:0 24px; }
+      .exp-grid { grid-template-columns:1fr; }
+      .res-inner { grid-template-columns:1fr; padding:0 24px; gap:48px; }
+      .res-vline { display:none; }
+      footer { padding:48px 24px 32px; }
+      .footer-top { flex-direction:column; gap:28px; }
+      .footer-bottom { flex-direction:column; gap:10px; text-align:center; }
+      #about, #experience, #reservations { padding:80px 0; }
+      .info-cells { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="pre-word">BACCARAT</div>
+    <div class="pre-bar-wrap"><div class="pre-bar"></div></div>
+  </div>
+
+  <!-- Scroll progress -->
+  <div id="scroll-progress"></div>
+
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">
+      <img src="Bacarat Bangkok/images.png" alt="Baccarat" />
+      <span class="nav-logo-text">Baccarat Bangkok</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#reservations">Reservations</a></li>
+      <li><a href="ladies-night.html">Ladies Night</a></li>
+    </ul>
+    <a href="#reservations" class="nav-reserve">Book a Table</a>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-img"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Bangkok · Sukhumvit 24 · The Davis Hotel</span>
+      <h1 class="hero-title">Bacc<em>arat</em></h1>
+      <div class="hero-tagline">
+        <span class="tagline-word">Moody</span>
+        <span class="tagline-sep"></span>
+        <span class="tagline-word">Sexy</span>
+        <span class="tagline-sep"></span>
+        <span class="tagline-word">Intimate</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#reservations" class="btn-red">Reserve Your Table</a>
+        <a href="ladies-night.html" class="btn-ghost">Ladies Night →</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span class="scroll-label">Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <div class="marquee-bar">
+    <div class="marquee-track">
+      <span class="marquee-item">House Music <span>✦</span></span>
+      <span class="marquee-item">Sukhumvit 24 <span>✦</span></span>
+      <span class="marquee-item">The Davis Bangkok Hotel <span>✦</span></span>
+      <span class="marquee-item">Intimate Bar <span>✦</span></span>
+      <span class="marquee-item">New York Vibe <span>✦</span></span>
+      <span class="marquee-item">Upscale Casual <span>✦</span></span>
+      <span class="marquee-item">Table Reservations <span>✦</span></span>
+      <span class="marquee-item">House Music <span>✦</span></span>
+      <span class="marquee-item">Sukhumvit 24 <span>✦</span></span>
+      <span class="marquee-item">The Davis Bangkok Hotel <span>✦</span></span>
+      <span class="marquee-item">Intimate Bar <span>✦</span></span>
+      <span class="marquee-item">New York Vibe <span>✦</span></span>
+      <span class="marquee-item">Upscale Casual <span>✦</span></span>
+      <span class="marquee-item">Table Reservations <span>✦</span></span>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="about-inner">
+      <div class="about-img-wrap reveal">
+        <div class="img-reveal-overlay"></div>
+        <img class="about-img" src="Bacarat Bangkok/baccarat+bangkok.webp" alt="Baccarat Bangkok" />
+        <div class="about-img-label">The Davis Bangkok · Sukhumvit Soi 24</div>
+      </div>
+      <div class="about-text-col">
+        <span class="section-label reveal">About Baccarat</span>
+        <h2 class="about-heading reveal rd1">Where Bangkok<br />comes <em>alive</em><br />after dark.</h2>
+        <p class="about-p reveal rd2">
+          Nestled inside <strong>The Davis Bangkok Hotel</strong> on Sukhumvit 24,
+          Baccarat is Bangkok's most seductive address after dark. Moody lighting,
+          handcrafted cocktails, and a sound system tuned to the finest house music —
+          every detail designed to make the night feel like it belongs to you.
+        </p>
+        <p class="about-p reveal rd2">
+          Equal parts New York cool and Bangkok warmth. An atmosphere that changes how you feel the moment you walk in.
+        </p>
+        <div class="about-stats reveal rd3">
+          <div class="stat">
+            <div class="stat-num">Soi 24</div>
+            <div class="stat-label">Heart of Bangkok</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">NYC</div>
+            <div class="stat-label">Vibe. Bangkok Address.</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">House Music Every Night</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">1<span style="font-size:1.1rem">st</span></div>
+            <div class="stat-label">Rule — Dress to Impress</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="full-bleed">
+    <img src="Bacarat Bangkok/5010916.jpg" alt="Baccarat Bangkok interior" />
+    <div class="full-bleed-overlay">
+      <p class="full-bleed-quote">
+        "Moody, Sexy, and <em>Intimate</em> — Bangkok's most unforgettable night."
+      </p>
+    </div>
+  </div>
+
+  <section id="experience">
+    <div class="exp-inner">
+      <div class="exp-header reveal">
+        <span class="section-label">The Experience</span>
+        <h2 class="exp-title">Three things you'll<br /><em>never forget.</em></h2>
+        <div class="gold-divider"><div class="div-diamond"></div></div>
+      </div>
+      <div class="exp-grid">
+        <div class="exp-card reveal rd1">
+          <span class="card-n">01</span>
+          <h3 class="card-h">The Sound</h3>
+          <p class="card-p">Pure house music curated by Bangkok's finest selectors. From deep and soulful to driving four-to-the-floor. A sound system built to feel it in your chest.</p>
+        </div>
+        <div class="exp-card reveal rd2">
+          <span class="card-n">02</span>
+          <h3 class="card-h">The Ambience</h3>
+          <p class="card-p">Dark walls, low lighting, velvet corners. Moody isn't a mood here — it's the architecture. Intimate by design, electric by night.</p>
+        </div>
+        <div class="exp-card reveal rd3">
+          <span class="card-n">03</span>
+          <h3 class="card-h">The Cocktails</h3>
+          <p class="card-p">Handcrafted drinks with intention. Each cocktail is a conversation starter — balanced, surprising, made by bartenders who take their craft seriously.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reservations">
+    <div class="res-inner">
+      <div>
+        <span class="section-label reveal">Reservations</span>
+        <h2 class="res-h reveal rd1">Secure your<br /><em>table</em> tonight.</h2>
+        <p class="res-p reveal rd1">Table bookings fill fast. Contact us directly on LINE or Instagram. Walk-ins welcome, but booking is always recommended.</p>
+        <div class="reveal rd2">
+          <div class="contact-block">
+            <span class="c-label">Call Us</span>
+            <a href="tel:+66809799958" class="c-value">+66 80 979 9958</a>
+          </div>
+          <div class="contact-block">
+            <span class="c-label">LINE</span>
+            <a href="https://lin.ee/du38qLs" class="c-value">@BACCARATbangkok</a>
+          </div>
+          <div class="contact-block">
+            <span class="c-label">Instagram</span>
+            <a href="https://instagram.com/baccaratbangkok" target="_blank" class="c-value">@baccaratbangkok</a>
+          </div>
+        </div>
+        <div class="dress-box reveal rd3">
+          <div class="dress-rule">Upscale Casual attire required</div>
+          <div class="dress-rule">No shorts — for gentlemen or ladies</div>
+          <div class="dress-rule">No sandals or open footwear</div>
+          <div class="dress-rule">Management reserves the right of entry</div>
+        </div>
+      </div>
+      <div class="res-vline"></div>
+      <div>
+        <div class="info-cells reveal">
+          <div class="info-cell">
+            <span class="ic-label">Location</span>
+            <div class="ic-val">The Davis Bangkok Hotel</div>
+          </div>
+          <div class="info-cell">
+            <span class="ic-label">Address</span>
+            <div class="ic-val">88 Sukhumvit Soi 24</div>
+          </div>
+          <div class="info-cell">
+            <span class="ic-label">Music</span>
+            <div class="ic-val">House · Deep · Electronic</div>
+          </div>
+          <div class="info-cell">
+            <span class="ic-label">Parking</span>
+            <div class="ic-val">The Davis Hotel</div>
+          </div>
+        </div>
+        <div class="ladies-cta-box reveal rd2">
+          <span class="ladies-cta-label">Special Event</span>
+          <div class="ladies-cta-title"><em>Ladies Night</em> — Every Wednesday</div>
+          <p class="ladies-cta-sub">Sign up and receive 3 complimentary welcome drinks on arrival.</p>
+          <a href="ladies-night.html" class="btn-amber">Register Now →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-logo-wrap">
+          <img class="footer-logo-img" src="Bacarat Bangkok/images.png" alt="Baccarat" />
+          <div class="footer-brand">Bacc<em>arat</em> Bangkok</div>
+        </div>
+        <div class="footer-links">
+          <a href="https://instagram.com/baccaratbangkok" target="_blank">Instagram</a>
+          <a href="https://lin.ee/du38qLs" target="_blank">LINE</a>
+          <a href="https://wa.me/66809799958" target="_blank">WhatsApp</a>
+          <a href="https://facebook.com/Baccaratbangkok" target="_blank">Facebook</a>
+          <a href="ladies-night.html">Ladies Night</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Baccarat Bangkok · The Davis Hotel · 88 Sukhumvit Soi 24 · Bangkok, Thailand</span>
+        <span class="footer-tagline">Moody. Sexy. Intimate.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+    document.body.style.overflow = 'hidden';
+
+    /* ── Preloader ─────────────────────────────────────────── */
+    const preloader = document.getElementById('preloader');
+    const preBar    = document.querySelector('.pre-bar');
+    const preWord   = document.querySelector('.pre-word');
+
+    const introTl = gsap.timeline({
+      onComplete: () => {
+        gsap.to(preloader, {
+          opacity: 0, duration: 0.5, ease: 'power2.in',
+          onComplete: () => {
+            preloader.style.display = 'none';
+            document.body.style.overflow = '';
+            initPage();
+          }
+        });
+      }
+    });
+    introTl
+      .to(preBar,  { scaleX: 1, duration: 0.9, ease: 'power3.inOut' })
+      .to(preWord, { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, '-=0.3')
+      .to(preBar,  { opacity: 0, duration: 0.25 }, '+=0.35')
+      .to(preWord, { opacity: 0, duration: 0.25 }, '<');
+
+    /* ── All page animations (run after preloader) ─────────── */
+    function initPage() {
+
+      /* Custom cursor */
+      const cursor = document.getElementById('cursor');
+      const ring   = document.getElementById('cursor-ring');
+      let mx = 0, my = 0;
+      document.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        cursor.style.left = mx + 'px';
+        cursor.style.top  = my + 'px';
+        ring.style.left   = mx + 'px';
+        ring.style.top    = my + 'px';
+      });
+
+      /* Cursor particle trail */
+      const particles = [];
+      for (let i = 0; i < 8; i++) {
+        const p = document.createElement('div');
+        p.className = 'cursor-particle';
+        document.body.appendChild(p);
+        particles.push({ el: p, x: 0, y: 0, delay: i * 0.04 });
+      }
+      let trailX = 0, trailY = 0;
+      document.addEventListener('mousemove', e => { trailX = e.clientX; trailY = e.clientY; });
+      (function loop() {
+        requestAnimationFrame(loop);
+        particles.forEach((p, i) => {
+          p.x += (trailX - p.x) * (0.15 - i * 0.012);
+          p.y += (trailY - p.y) * (0.15 - i * 0.012);
+          p.el.style.left = p.x + 'px';
+          p.el.style.top  = p.y + 'px';
+          p.el.style.opacity = (1 - i / particles.length) * 0.5;
+          const scale = 1 - i / particles.length * 0.7;
+          p.el.style.transform = `translate(-50%,-50%) scale(${scale})`;
+        });
+      })();
+
+      /* Scroll progress bar */
+      const progBar = document.getElementById('scroll-progress');
+      window.addEventListener('scroll', () => {
+        const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+        progBar.style.width = pct + '%';
+        document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+      });
+
+      /* Smooth anchor scroll */
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+          const t = document.querySelector(a.getAttribute('href'));
+          if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+        });
+      });
+
+      /* ── Hero parallax ───────────────────────────────────── */
+      gsap.to('.hero-img', {
+        yPercent: 28,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1
+        }
+      });
+
+      /* ── Hero content entrance ───────────────────────────── */
+      gsap.from('.hero-eyebrow', { opacity: 0, y: 20, duration: 0.8, delay: 0.2, ease: 'power3.out' });
+      gsap.from('.hero-title',   { opacity: 0, y: 50, duration: 1.1, delay: 0.4, ease: 'power3.out' });
+      gsap.from('.hero-tagline', { opacity: 0, y: 20, duration: 0.8, delay: 0.75, ease: 'power3.out' });
+      gsap.from('.hero-cta',     { opacity: 0, y: 20, duration: 0.8, delay: 1.0,  ease: 'power3.out' });
+      gsap.from('.hero-scroll',  { opacity: 0, duration: 1, delay: 1.6, ease: 'power2.out' });
+      gsap.from('#nav',          { opacity: 0, y: -20, duration: 0.7, delay: 0.1, ease: 'power3.out' });
+
+      /* ── About image sweep reveal ────────────────────────── */
+      gsap.to('.img-reveal-overlay', {
+        scaleX: 0,
+        duration: 1.2,
+        ease: 'power4.inOut',
+        scrollTrigger: {
+          trigger: '.about-img-wrap',
+          start: 'top 75%'
+        }
+      });
+      gsap.from('.about-img', {
+        scale: 1.12,
+        duration: 1.4,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.about-img-wrap',
+          start: 'top 75%'
+        }
+      });
+
+      /* ── Full-bleed parallax ─────────────────────────────── */
+      gsap.to('.full-bleed img', {
+        yPercent: 18,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.full-bleed',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5
+        }
+      });
+
+      /* Quote fade in */
+      gsap.from('.full-bleed-quote', {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.full-bleed',
+          start: 'top 60%'
+        }
+      });
+
+      /* ── Scroll reveals (replaces IntersectionObserver) ──── */
+      gsap.utils.toArray('.reveal').forEach((el, i) => {
+        const delay = el.classList.contains('rd3') ? 0.3
+                    : el.classList.contains('rd2') ? 0.2
+                    : el.classList.contains('rd1') ? 0.1 : 0;
+        gsap.from(el, {
+          opacity: 0,
+          y: 40,
+          duration: 0.9,
+          delay,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 82%',
+            toggleActions: 'play none none none'
+          }
+        });
+        el.style.opacity = '';
+        el.style.transform = '';
+      });
+
+      /* ── 3D card tilt ────────────────────────────────────── */
+      document.querySelectorAll('.exp-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const r = card.getBoundingClientRect();
+          const x = (e.clientX - r.left) / r.width  - 0.5;
+          const y = (e.clientY - r.top)  / r.height - 0.5;
+          gsap.to(card, {
+            rotateX: -y * 10,
+            rotateY:  x * 10,
+            transformPerspective: 900,
+            duration: 0.35,
+            ease: 'power2.out'
+          });
+        });
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, { rotateX: 0, rotateY: 0, duration: 0.6, ease: 'power3.out' });
+        });
+      });
+
+      /* ── Magnetic buttons ────────────────────────────────── */
+      document.querySelectorAll('.btn-red, .btn-ghost, .btn-amber, .nav-reserve').forEach(btn => {
+        btn.addEventListener('mousemove', e => {
+          const r = btn.getBoundingClientRect();
+          const x = (e.clientX - r.left - r.width  / 2) * 0.3;
+          const y = (e.clientY - r.top  - r.height / 2) * 0.3;
+          gsap.to(btn, { x, y, duration: 0.3, ease: 'power2.out' });
+        });
+        btn.addEventListener('mouseleave', () => {
+          gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'power3.out' });
+        });
+      });
+
+      /* ── Experience cards stagger ────────────────────────── */
+      gsap.from('.exp-card', {
+        opacity: 0,
+        y: 50,
+        stagger: 0.15,
+        duration: 0.9,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.exp-grid',
+          start: 'top 78%'
+        }
+      });
+
+      /* ── Nav link hover underline ─────────────────────────── */
+      document.querySelectorAll('.nav-links a').forEach(a => {
+        a.addEventListener('mouseenter', () => gsap.to(a, { color: '#C41818', duration: 0.2 }));
+        a.addEventListener('mouseleave', () => gsap.to(a, { color: 'rgba(240,224,208,0.5)', duration: 0.2 }));
+      });
+
+    } /* end initPage */
+  </script>
+</body>
+</html>

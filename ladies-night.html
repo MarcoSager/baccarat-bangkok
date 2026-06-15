@@ -758,10 +758,40 @@
 
     /* ── Mobile ───────────────────────────────────────────────── */
     @media (max-width:900px) {
-      .hero { grid-template-columns:1fr; min-height:auto; }
-      .hero-img-panel { height: 50vh; }
-      .hero-img-panel::after { background: linear-gradient(to bottom, rgba(6,4,4,0) 30%, rgba(6,4,4,1) 100%); }
-      .hero-text-panel { padding: 48px 24px 60px; }
+      /* Prevent horizontal overflow on iOS Safari */
+      html, body { overflow-x: hidden; max-width: 100%; }
+
+      /* Switch hero from grid to stacked flex — grid 1fr can still overflow on Safari */
+      .hero {
+        display: flex;
+        flex-direction: column;
+        min-height: 100svh; /* svh accounts for mobile browser chrome */
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+      }
+      .hero-img-panel {
+        width: 100%;
+        max-width: 100%;
+        height: 55vh;
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+      /* Darken bottom so text panel above it is readable */
+      .hero-img-panel::after {
+        background: linear-gradient(to bottom, rgba(6,4,4,0.1) 0%, rgba(6,4,4,0.85) 85%, rgba(6,4,4,1) 100%);
+      }
+      .hero-text-panel {
+        width: 100%;
+        max-width: 100%;
+        flex: 1;
+        padding: 44px 24px 60px;
+        min-width: 0; /* prevent grid/flex child from overflowing */
+        overflow: hidden;
+      }
+      /* Glow extends right:-10% — hides it on mobile to stop overflow */
+      .hero-text-panel::before { display: none; }
+
       .perks-inner, .form-inner { padding: 0 24px; }
       .perks-grid { grid-template-columns:1fr; }
       .form-card { padding: 36px 24px; }
@@ -774,11 +804,13 @@
     }
 
     @media (max-width:600px) {
-      .hero-headline { font-size: clamp(3rem, 16vw, 5rem); }
-      .hero-text-panel { padding: 36px 20px 52px; }
+      .hero-headline { font-size: clamp(2.8rem, 15vw, 4.5rem); }
+      .hero-img-panel { height: 50vh; }
+      .hero-text-panel { padding: 32px 20px 52px; }
+      .hero-logo { margin-bottom: 32px; }
       .offer-box { flex-direction: column; text-align: center; gap: 12px; }
       .hero-cta { flex-direction: column; }
-      .hero-cta a { text-align: center; }
+      .hero-cta a { text-align: center; width: 100%; }
       .btn-submit { font-size: 0.62rem; padding: 16px; }
       .form-card { padding: 28px 18px; }
       .success-badge { font-size: 1.1rem; padding: 12px 20px; }
@@ -1034,14 +1066,15 @@
       gsap.registerPlugin(ScrollTrigger);
       document.documentElement.classList.add('gsap-on');
 
-      /* Hero split-panel entrance */
+      /* Hero split-panel entrance — no x on mobile (causes Safari overflow) */
+      const mob = window.matchMedia('(max-width: 900px)').matches;
       gsap.fromTo('.hero-img-panel',
-        { x: '-6%', opacity: 0 },
-        { x: '0%', opacity: 1, duration: 1.1, ease: 'power3.out', delay: 0.1 }
+        { opacity: 0, x: mob ? 0 : '-6%' },
+        { opacity: 1, x: '0%', duration: 1.1, ease: 'power3.out', delay: 0.1 }
       );
       gsap.fromTo('.hero-text-panel',
-        { x: '4%', opacity: 0 },
-        { x: '0%', opacity: 1, duration: 1.1, ease: 'power3.out', delay: 0.2 }
+        { opacity: 0, y: mob ? 20 : 0, x: mob ? 0 : '4%' },
+        { opacity: 1, y: 0, x: '0%', duration: 1.1, ease: 'power3.out', delay: 0.2 }
       );
       gsap.fromTo('.hero-logo',     { opacity:0, y:-12 }, { opacity:1, y:0, duration:0.6,  delay:0.5,  ease:'power3.out' });
       gsap.fromTo('.event-day',     { opacity:0, y:16  }, { opacity:1, y:0, duration:0.7,  delay:0.65, ease:'power3.out' });

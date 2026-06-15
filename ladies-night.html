@@ -777,9 +777,10 @@
         flex-shrink: 0;
         overflow: hidden;
       }
-      /* Darken bottom so text panel above it is readable */
+      /* Lighten on mobile — desktop 0.65 brightness + heavy overlay = too dark */
+      .hero-img-panel img { filter: brightness(0.88) contrast(1.05); }
       .hero-img-panel::after {
-        background: linear-gradient(to bottom, rgba(6,4,4,0.1) 0%, rgba(6,4,4,0.85) 85%, rgba(6,4,4,1) 100%);
+        background: linear-gradient(to bottom, rgba(6,4,4,0) 0%, rgba(6,4,4,0.55) 75%, rgba(6,4,4,1) 100%);
       }
       .hero-text-panel {
         width: 100%;

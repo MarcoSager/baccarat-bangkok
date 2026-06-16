@@ -726,6 +726,38 @@
       box-shadow: 0 0 8px rgba(196,24,24,0.8);
     }
 
+    /* ── LINE chat bubble ──────────────────────────────────── */
+    .line-bubble {
+      position: fixed;
+      bottom: 24px; right: 24px;
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: #06C755;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 18px rgba(6,199,85,0.45);
+      z-index: 500;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .line-bubble:hover { transform: scale(1.08); box-shadow: 0 6px 22px rgba(6,199,85,0.6); }
+    .line-bubble svg { width: 30px; height: 30px; color: #fff; position: relative; z-index: 1; }
+    .line-bubble-pulse {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: #06C755;
+      animation: linePulse 2.2s ease-out infinite;
+    }
+    @keyframes linePulse {
+      0%   { transform: scale(1); opacity: 0.55; }
+      100% { transform: scale(1.9); opacity: 0; }
+    }
+    @media (max-width: 600px) {
+      .line-bubble { bottom: 18px; right: 16px; width: 52px; height: 52px; }
+      .line-bubble svg { width: 26px; height: 26px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .line-bubble-pulse { animation: none; }
+    }
+
     /* ── Field focus glow ───────────────────────────────────── */
     .field-input:focus, .field-select:focus {
       border-color: var(--red-bright);
@@ -1053,6 +1085,14 @@
     </div>
     <div class="footer-copy">© 2025 Baccarat Bangkok · All rights reserved</div>
   </footer>
+
+  <!-- ── LINE chat bubble ──────────────────────────────────────── -->
+  <a href="https://lin.ee/du38qLs" target="_blank" class="line-bubble" aria-label="Chat on LINE">
+    <span class="line-bubble-pulse"></span>
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C6.48 2 2 5.69 2 10.2c0 4.05 3.58 7.44 8.42 8.08.33.07.77.22.88.5.1.26.07.66.03.92l-.14.85c-.04.26-.2 1.01.89.55 1.08-.46 5.86-3.45 8-5.91C21.6 13.45 22 11.88 22 10.2 22 5.69 17.52 2 12 2z" fill="currentColor"/>
+    </svg>
+  </a>
 
   <script>
     /* ── Scroll progress (no GSAP needed) ───────────────────── */
